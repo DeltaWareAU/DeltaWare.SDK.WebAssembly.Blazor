@@ -1,0 +1,12 @@
+﻿.title {
+    z-index: +1;
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 16px 24px;
+}
+
+.title .mud-button-root {
+    top: 8px;
+    right: 8px;
+    position: absolute;
+}

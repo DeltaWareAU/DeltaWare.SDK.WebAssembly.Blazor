@@ -1,0 +1,43 @@
+﻿@using Microsoft.JSInterop
+<div id="@Id" tabindex="@TabIndex">
+    @ChildContent
+</div>
+
+@code {
+    public string Id { get; } = $"focus-container-{Guid.NewGuid()}";
+
+    private DotNetObjectReference<FocusContainer> _dotNetRef;
+
+    [Inject] public IJSRuntime JsRuntime { get; set; }
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> FocusGained { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> FocusLost { get; set; }
+    [Parameter] public int TabIndex { get; set; } = 100;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            return;
+        }
+
+        _dotNetRef = DotNetObjectReference.Create(this);
+
+        await JsRuntime.InvokeVoidAsync("InitiateFocusComponent", Id, _dotNetRef);
+    }
+
+    [JSInvokable("FocusGained")]
+    public Task OnFocusGained()
+    {
+        return FocusGained.InvokeAsync();
+    }
+
+    [JSInvokable("FocusLost")]
+    public Task OnFocusLost()
+    {
+        return FocusLost.InvokeAsync();
+    }
+}

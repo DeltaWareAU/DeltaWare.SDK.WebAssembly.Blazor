@@ -1,0 +1,22 @@
+﻿<div class="footer">
+    <MudContainer Style="width: 100%; max-width: none; align-content: center">
+        <MudGrid>
+            <MudItem xs="6">
+                <MudText Align="Align.Left">
+                    COPYRIGHT &copy; 2020
+                    <MudLink Href="@Link">@Name,</MudLink>
+                    All rights Reserved
+                </MudText>
+            </MudItem>
+            <MudItem xs="6">
+                <MudText Align="Align.Right">My Application | Version: '1.5.0.1' | Environment: 'Development'</MudText>
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+</div>
+
+@code{
+    [Parameter] public string Name { get; set; }
+
+    [Parameter] public string Link { get; set; }
+}

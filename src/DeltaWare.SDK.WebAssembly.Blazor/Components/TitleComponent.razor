@@ -1,0 +1,10 @@
+﻿<div class="title">
+    <MudText Typo="Typo.h6">@Title</MudText>
+    <MudIconButton Style="top: 8px; right: 8px; position: absolute;" Icon="@Icons.Filled.Close" OnClick="OnCloseClick"/>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; }
+
+    [Parameter] public EventCallback<MouseEventArgs> OnCloseClick { get; set; }
+}

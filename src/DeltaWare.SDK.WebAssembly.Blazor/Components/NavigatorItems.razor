@@ -1,0 +1,22 @@
+﻿@using DeltaWare.SDK.WebAssembly.Blazor.Navigation.References
+@foreach(INavigationReference reference in Items)
+{
+    if (reference is INavigationGroupReference groupReference)
+    {
+        <MudNavGroup Title="@groupReference.Title" Expanded="@groupReference.Expanded" Icon="@groupReference.Icon">
+            <NavigatorItems Items="@groupReference.ChildReferences"/>
+        </MudNavGroup>
+    }
+    else if(reference is INavigationPageReference pageReference)
+    {
+        if (!reference.Hidden)
+        {
+            <MudNavLink Href="@pageReference.Href" Match="@pageReference.LinkMatch" Icon="@pageReference.Icon">@pageReference.Title</MudNavLink>
+        }
+    }
+}
+
+@code
+{
+    [Parameter] public IEnumerable<INavigationReference> Items { get; set; }
+}

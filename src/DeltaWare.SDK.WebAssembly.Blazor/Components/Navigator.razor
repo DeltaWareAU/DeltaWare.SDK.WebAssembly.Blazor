@@ -1,0 +1,18 @@
+﻿@using DeltaWare.SDK.WebAssembly.Blazor.Navigation
+@using DeltaWare.SDK.WebAssembly.Blazor.Navigation
+@using DeltaWare.SDK.WebAssembly.Blazor.Navigation.References
+<MudNavMenu>
+    <NavigatorItems Items="_navigationItems"/>
+</MudNavMenu>
+
+@code
+{
+    private IEnumerable<INavigationReference> _navigationItems;
+
+    [Inject] private IPageService PageService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _navigationItems = await PageService.GetAsync();
+    }
+}
